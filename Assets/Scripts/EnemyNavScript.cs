@@ -5,7 +5,7 @@ public class EnemyNavScript : MonoBehaviour {
 
     private GameObject Goal;
 
-	// Use this for initialization
+	// When the enemy is spawned, their goal is set in the navmesh agent, and they immediately start waking towards it.
 	void Start () {
         Goal = GameObject.FindGameObjectWithTag("Goal");
         GetComponent<NavMeshAgent>().SetDestination(Goal.transform.position);

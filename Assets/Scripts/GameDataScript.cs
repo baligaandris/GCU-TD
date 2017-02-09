@@ -17,12 +17,13 @@ public class GameDataScript : MonoBehaviour {
 	void Update () {
 	
 	}
-
+    //we call this script, when an enemy walks into the Uni, to deal damage to it.
     public void takeDamage(int damage) {
         uniHealth -= damage;
         updateUI();
     }
 
+    //we will have more things to display, we can keep updating this method, to use it to update all UI elements.
     void updateUI() {
         healthDisplay.GetComponent<Text>().text = "HP: " + uniHealth;
     }
