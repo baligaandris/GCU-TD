@@ -23,6 +23,7 @@ public class TowerShootsScript : MonoBehaviour {
     private float shootCoolDown = 0;
     public float fireRate = 0.3f;
 
+    public GameObject projectile;
 
 
 	// Use this for initialization
@@ -44,6 +45,10 @@ public class TowerShootsScript : MonoBehaviour {
 
             targets[0].EnemyObject.GetComponent<EnemyHealthScript>().TakeDamage(damage);
             targets[0].health = targets[0].EnemyObject.GetComponent<EnemyHealthScript>().health;
+
+            GameObject newProjectile = Instantiate(projectile,transform.position, Quaternion.identity) as GameObject;
+            newProjectile.GetComponent<ProjectileScript>().myTower = gameObject;
+
             if (targets[0].health <= 0) {
                 targets.Remove(targets[0]);
             }
