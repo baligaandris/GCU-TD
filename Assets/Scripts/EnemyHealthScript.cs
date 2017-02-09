@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyHealthScript : MonoBehaviour {
 
     public int health = 100;
-
+    public int damage = 1;
 
 	// Use this for initialization
 	void Start () {
