@@ -15,7 +15,7 @@ public class EnemyHealthScript : MonoBehaviour {
 	void Update () {
         //if their health reaches 0, they get destroyed
         if (health <= 0) {
-
+            
             Destroy(gameObject);
         }
 	}

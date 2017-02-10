@@ -7,24 +7,25 @@ public class Enemy
 {
     public GameObject EnemyObject;
     public int health;
-    public Enemy(GameObject enemyIn, int hp)
+    public float distanceToUni;
+    public Enemy(GameObject enemyIn, int hp, float dist)
     {
         EnemyObject = enemyIn;
         health = hp;
+        distanceToUni = dist;
     }
 }
 
 public class TowerShootsScript : MonoBehaviour {
 
-    
 
+    public Enemy target;
     public List<Enemy> targets; // this list will contain all the enemies in the range of the tower
     public int damage = 5;
     private float shootCoolDown = 0;
     public float fireRate = 0.3f; //how much time passes between shots.
 
     public GameObject projectile;
-
 
 	// Use this for initialization
 	void Start () {
@@ -33,34 +34,46 @@ public class TowerShootsScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        CleanUpDestroyedTargets();
+        UpdateDistancesFromUni();
+        DetermineNewTarget();
         shootCoolDown += Time.deltaTime; //tick the cooldown
-        if (targets.Count != 0  && shootCoolDown >=fireRate){ //when the list of targets in range is not empty, and the shooting is not on cooldown we shoot.
+        if (targets.Count != 0 && shootCoolDown >= fireRate)
+        {
 
-            while (targets[0].EnemyObject == null) { // if the target we have on the top of our list is already destroyed, we remove it from the list, and move on to the next target
+
+
+            //selecting the target closest to the uni
+
+
+
+
+            if (target.EnemyObject != null)
+            {
+                target.EnemyObject.GetComponent<EnemyHealthScript>().TakeDamage(damage); //deal the damage
+                target.health = target.EnemyObject.GetComponent<EnemyHealthScript>().health; //check in with the enemy to see how much health they actually have
+
+                GameObject newProjectile = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject; //create the projectile
+                newProjectile.GetComponent<ProjectileScript>().myTower = gameObject; //tell the projectile where it was shot from
+
+                if (target.health <= 0)
+                { //if the target we were shooting at just died, remove it from the list
                     targets.Remove(targets[0]);
-                if (targets.Count == 0) { // in case we have just removed the last thing from the list, we exit the loop
-                    return;
                 }
+                shootCoolDown = 0; //reset cooldown
             }
 
-            targets[0].EnemyObject.GetComponent<EnemyHealthScript>().TakeDamage(damage); //deal the damage
-            targets[0].health = targets[0].EnemyObject.GetComponent<EnemyHealthScript>().health; //check in with the enemy to see how much health they actually have
-
-            GameObject newProjectile = Instantiate(projectile,transform.position, Quaternion.identity) as GameObject; //create the projectile
-            newProjectile.GetComponent<ProjectileScript>().myTower = gameObject; //tell the projectile where it was shot from
-
-            if (targets[0].health <= 0) { //if the target we were shooting at just died, remove it from the list
-                targets.Remove(targets[0]);
-            }
-            shootCoolDown = 0; //reset cooldown
         }
-	}
+
+            
+        }
+	
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("enemy in range"); 
+        //Debug.Log("enemy in range"); 
         if (other.gameObject.tag == "Enemy") //when something enters the range, we check if it is an enemy.
         {
-            Enemy newEnemy = new Enemy(other.gameObject, other.gameObject.GetComponent<EnemyHealthScript>().health); //if it is an enemy, we add it to our list, allong with its health
+            Enemy newEnemy = new Enemy(other.gameObject, other.gameObject.GetComponent<EnemyHealthScript>().health,other.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().remainingDistance); //if it is an enemy, we add it to our list, allong with its health, and distance from the Uni
             targets.Add(newEnemy);
         }
     }
@@ -70,10 +83,60 @@ public class TowerShootsScript : MonoBehaviour {
         for (int i = 0; i < targets.Count; i++) {
             if (targets[i].EnemyObject == other.gameObject) {
                 targets.Remove(targets[i]);
+                Debug.Log("enemy out of range");
+            }
+            if (target.EnemyObject == other.gameObject) {
+                CleanUpDestroyedTargets();
+                UpdateDistancesFromUni();
+                DetermineNewTarget();
             }
         }
 
     }
+
+    void DetermineNewTarget() {
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (target == null || target.EnemyObject == null)
+            {
+                target = targets[i];
+            }
+            else
+            {
+                if (target.distanceToUni > targets[i].distanceToUni)
+                {
+                    //Debug.Log("I changed the target");
+                    if (targets[i].EnemyObject != null)
+                    {
+                        target = targets[i];
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    void CleanUpDestroyedTargets() {
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (targets[i].EnemyObject == null)
+            {
+                targets.Remove(targets[i]);
+                i--;
+                //Debug.Log("i fixed a removed target");
+            }
+        }
+    }
+
+    void UpdateDistancesFromUni() {
+        for (int i = 0; i < targets.Count; i++)
+        {
+            targets[i].distanceToUni = targets[i].EnemyObject.GetComponent<UnityEngine.AI.NavMeshAgent>().remainingDistance;
+        }
+    } 
+
+
 
 
 }
