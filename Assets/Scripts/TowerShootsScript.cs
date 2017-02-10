@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 //this is the enemy class, it contains a gameobject, that point to a gameobject in the scene, and a health, that tracks their hp, so we know when they die
+[System.Serializable]
 public class Enemy
 {
     public GameObject EnemyObject;
     public int health;
     public float distanceToUni;
+    
     public Enemy(GameObject enemyIn, int hp, float dist)
     {
         EnemyObject = enemyIn;
@@ -84,25 +86,30 @@ public class TowerShootsScript : MonoBehaviour {
             if (targets[i].EnemyObject == other.gameObject) {
                 targets.Remove(targets[i]);
                 Debug.Log("enemy out of range");
-            }
-            if (target.EnemyObject == other.gameObject) {
+
                 CleanUpDestroyedTargets();
                 UpdateDistancesFromUni();
                 DetermineNewTarget();
             }
+
+
+
         }
 
     }
 
     void DetermineNewTarget() {
+        if (targets.Count == 0)
+        {
+            target = null;
+        }
+        else {
+            target = targets[0];
+        }
+
         for (int i = 0; i < targets.Count; i++)
         {
-            if (target == null || target.EnemyObject == null)
-            {
-                target = targets[i];
-            }
-            else
-            {
+
                 if (target.distanceToUni > targets[i].distanceToUni)
                 {
                     //Debug.Log("I changed the target");
@@ -112,8 +119,8 @@ public class TowerShootsScript : MonoBehaviour {
                     }
                 }
 
-            }
         }
+
 
     }
 
