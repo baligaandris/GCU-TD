@@ -9,7 +9,9 @@ public class EnemyNavScript : MonoBehaviour {
 	void Start () {
         Goal = GameObject.FindGameObjectWithTag("Goal");
         GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(Goal.transform.position);
-	}
+        GetComponent<UnityEngine.AI.NavMeshAgent>().updateRotation = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -26,7 +26,9 @@ public class ProjectileScript : MonoBehaviour {
                 float step = speed * Time.deltaTime;
 
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-                if (transform.position == target.transform.position)
+                transform.rotation = Quaternion.LookRotation(target.transform.position-transform.position);
+            gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
+            if (transform.position == target.transform.position)
                 {
                     Destroy(gameObject);
                 }
