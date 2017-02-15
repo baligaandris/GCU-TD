@@ -52,20 +52,23 @@ public class TowerShootsScript : MonoBehaviour {
 
             if (target.EnemyObject != null)
             {
-                target.EnemyObject.GetComponent<EnemyHealthScript>().TakeDamage(damage); //deal the damage
+                //target.EnemyObject.GetComponent<EnemyHealthScript>().TakeDamage(damage); //deal the damage
                 target.health = target.EnemyObject.GetComponent<EnemyHealthScript>().health; //check in with the enemy to see how much health they actually have
 
                 GameObject newProjectile = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject; //create the projectile
                 newProjectile.GetComponent<ProjectileScript>().myTower = gameObject; //tell the projectile where it was shot from
 
-                if (target.health <= 0)
-                { //if the target we were shooting at just died, remove it from the list
-                    targets.Remove(targets[0]);
-                }
+                //if (target.health <= 0)
+                //{ //if the target we were shooting at just died, remove it from the list
+                //    targets.Remove(targets[0]);
+                //}
                 shootCoolDown = 0; //reset cooldown
             }
 
         }
+
+        
+
 
             
         }

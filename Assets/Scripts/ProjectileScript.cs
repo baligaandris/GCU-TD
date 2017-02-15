@@ -22,19 +22,19 @@ public class ProjectileScript : MonoBehaviour {
         else //if there are some, fly towards it. getting the target from the top of the tower's list.
         {
 
-                target = myTower.GetComponent<TowerShootsScript>().target.EnemyObject;
-                float step = speed * Time.deltaTime;
+            target = myTower.GetComponent<TowerShootsScript>().target.EnemyObject;
+            float step = speed * Time.deltaTime;
 
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-                transform.rotation = Quaternion.LookRotation(target.transform.position-transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+            transform.rotation = Quaternion.LookRotation(target.transform.position-transform.position);
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
-            if (transform.position == target.transform.position)
-                {
-                    Destroy(gameObject);
-                }
+            if (transform.position == target.transform.position){
+                target.GetComponent<EnemyHealthScript>().TakeDamage(myTower.GetComponent<TowerShootsScript>().damage);
+                Destroy(gameObject);
+            }
 
 
-            //if you reach your target, destroy self.
+            //if you reach your target, deal your tower's damage and destroy self.
 
         }
     }

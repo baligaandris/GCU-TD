@@ -8,6 +8,8 @@ public class GameDataScript : MonoBehaviour {
 
     public Text healthDisplay;
 
+    public GameObject activeTower;
+
 	// Use this for initialization
 	void Start () {
         updateUI();
@@ -15,8 +17,26 @@ public class GameDataScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit = new RaycastHit();
 
-		StartCoroutine (DelayLoadEndScene());
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                Debug.Log("used raycast");
+                if (hit.collider.gameObject.tag == "Tower")
+                {
+                    activeTower = hit.collider.gameObject;
+                    Debug.Log("Clicked on Tower");
+                }
+                else {
+                    activeTower = null;
+                }
+            }
+        }
+
+        StartCoroutine (DelayLoadEndScene());
 	}
 
     //we call this script, when an enemy walks into the Uni, to deal damage to it.
