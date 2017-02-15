@@ -20,10 +20,19 @@ public class TowerRadialMenuScript : MonoBehaviour {
         if (activeTower != null)
         {
             GetComponent<RawImage>().enabled = true;
+            int numberOfChildren = transform.childCount;
+            for (int i = 0; i < numberOfChildren; i++) {
+                transform.GetChild(i).gameObject.SetActive(true);
+            }
             transform.position = Camera.main.WorldToScreenPoint(activeTower.transform.position);
         }
         else {
+            int numberOfChildren = transform.childCount;
             GetComponent<RawImage>().enabled = false;
+            for (int i = 0; i < numberOfChildren; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
 
 	}
