@@ -36,4 +36,9 @@ public class TowerRadialMenuScript : MonoBehaviour {
         }
 
 	}
+
+    public void Button1Click() {
+        Debug.Log("Button clicked");
+
+    }
 }

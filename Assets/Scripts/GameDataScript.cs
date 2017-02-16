@@ -9,32 +9,40 @@ public class GameDataScript : MonoBehaviour {
     public Text healthDisplay;
 
     public GameObject activeTower;
+    RaycastHit hit;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         updateUI();
-	}
+        hit = new RaycastHit();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetButtonDown("Fire1"))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit = new RaycastHit();
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                Debug.Log("used raycast");
-                if (hit.collider.gameObject.tag == "Tower")
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
-                    activeTower = hit.collider.gameObject;
-                    Debug.Log("Clicked on Tower");
-                }
-                else {
-                    activeTower = null;
+
+                    if (hit.collider.gameObject.tag == "Tower")
+                    {
+                        StartCoroutine(SlowlyChangeActiveTower());
+
+                    }
+                    else
+                    {
+
+                        StartCoroutine(SlowlyCloseRadialMenu());
+
+                    }
                 }
             }
-        }
 
         StartCoroutine (DelayLoadEndScene());
 	}
@@ -57,4 +65,15 @@ public class GameDataScript : MonoBehaviour {
 			Application.LoadLevel ("EndScene");
 		}
 	}
+
+    IEnumerator SlowlyCloseRadialMenu() {
+        yield return new WaitForSeconds(0.1f);
+        activeTower = null;
+    }
+
+    IEnumerator SlowlyChangeActiveTower()
+    {
+        yield return new WaitForSeconds(0.1f);
+        activeTower = hit.collider.gameObject;
+    }
 }
