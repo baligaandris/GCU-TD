@@ -4,12 +4,16 @@ using UnityEngine.EventSystems;
 
 public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public int towerPrice;
     public GameObject tower;
     GameObject hoverTower;
+
+    private GameDataScript gameData;
 
     // Use this for initialization
     void Start()
     {
+        gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>();
         hoverTower = Instantiate(tower);
         hoverTower.SetActive(false);
         RemoveFunctionFromPrefab();
@@ -36,21 +40,24 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        RaycastHit[] hits;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        hits = Physics.RaycastAll(ray, 50f);
-        if (hits != null && hits.Length > 0)
+        if (gameData.usac >= towerPrice)
         {
-            int terrainCollderQuadIndex = GetTerrainColliderQuadIndex(hits);
-            if (terrainCollderQuadIndex != -1)
+            RaycastHit[] hits;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            hits = Physics.RaycastAll(ray, 50f);
+            if (hits != null && hits.Length > 0)
             {
-                hoverTower.transform.position = hits[terrainCollderQuadIndex].point;
-                hoverTower.SetActive(true);
-                // Debug.Log (hits [terrainCollderQuadIndex].point);
-            }
-            else
-            {
-                hoverTower.SetActive(false);
+                int terrainCollderQuadIndex = GetTerrainColliderQuadIndex(hits);
+                if (terrainCollderQuadIndex != -1)
+                {
+                    hoverTower.transform.position = hits[terrainCollderQuadIndex].point;
+                    hoverTower.SetActive(true);
+                    // Debug.Log (hits [terrainCollderQuadIndex].point);
+                }
+                else
+                {
+                    hoverTower.SetActive(false);
+                }
             }
         }
     }
@@ -75,6 +82,7 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (hoverTower.activeSelf)
         {
             Instantiate(tower, hoverTower.transform.position, Quaternion.identity);
+            gameData.ChangeUsac(-towerPrice);
         }
 
         // Then set it to inactive ready for the next drag!

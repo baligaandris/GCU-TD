@@ -17,7 +17,7 @@ public class UniScript : MonoBehaviour {
     //when an enemy walks in, deal damage to the uni, and then destroy that enemy.
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
-            gameData.GetComponent<GameDataScript>().takeDamage(other.gameObject.GetComponent<EnemyHealthScript>().damage);
+            gameData.GetComponent<GameDataScript>().TakeDamage(other.gameObject.GetComponent<EnemyHealthScript>().damage);
             Destroy(other.gameObject);
         }
     }

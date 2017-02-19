@@ -5,15 +5,17 @@ using UnityEngine.UI;
 public class GameDataScript : MonoBehaviour {
 
     public int uniHealth = 100;
+    public int usac = 500;
 
     public Text healthDisplay;
+    public Text usacDisplay;
 
     public GameObject activeTower;
     RaycastHit hit;
 
     // Use this for initialization
     void Start () {
-        updateUI();
+        UpdateUI();
         hit = new RaycastHit();
 
     }
@@ -48,15 +50,22 @@ public class GameDataScript : MonoBehaviour {
 	}
 
     //we call this script, when an enemy walks into the Uni, to deal damage to it.
-    public void takeDamage(int damage) {
+    public void TakeDamage(int damage) {
         uniHealth -= damage;
-        updateUI();
+        UpdateUI();
 
     }
 
+    public void ChangeUsac(int value)
+    {
+        usac += value;
+        UpdateUI();
+    } 
+
     //we will have more things to display, we can keep updating this method, to use it to update all UI elements.
-    void updateUI() {
+    void UpdateUI() {
         healthDisplay.GetComponent<Text>().text = "HP: " + uniHealth;
+        usacDisplay.GetComponent<Text>().text = "USAC: " + usac;
     }
 
 	IEnumerator DelayLoadEndScene (){
