@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ProjectileScript : MonoBehaviour {
 
-    public GameObject myTower;
+    public GameObject myTower; //this is the tower the projectile is fired from. We need it. it is set by the tower that fires it. Which is kind of a problem, but I'll deal with it some other time.
     GameObject target;
     public float speed = 100;
 
@@ -19,7 +19,7 @@ public class ProjectileScript : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        else //if there are some, fly towards it. getting the target from the top of the tower's list.
+        else //if there are some, fly towards it. getting the target from the tower
         {
 
             target = myTower.GetComponent<TowerShootsScript>().target.EnemyObject;

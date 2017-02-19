@@ -102,17 +102,19 @@ public class TowerShootsScript : MonoBehaviour {
     }
 
     void DetermineNewTarget() {
+        //if there are no enemies in range, the empty the target variable
         if (targets.Count == 0)
         {
             target = null;
         }
         else {
+            //if not, then just put the first enemy as our target for now
             target = targets[0];
         }
 
         for (int i = 0; i < targets.Count; i++)
         {
-
+            //Now we compare ever enemy's distance to the university. if it is closer than the target, then we put it as target. After the loop finishes, we will have the closest enemy as target
                 if (target.distanceToUni > targets[i].distanceToUni)
                 {
                     //Debug.Log("I changed the target");
@@ -128,6 +130,7 @@ public class TowerShootsScript : MonoBehaviour {
     }
 
     void CleanUpDestroyedTargets() {
+        // loop through all targets, if it has been destroyed, remove it from the list
         for (int i = 0; i < targets.Count; i++)
         {
             if (targets[i].EnemyObject == null)
@@ -140,6 +143,7 @@ public class TowerShootsScript : MonoBehaviour {
     }
 
     void UpdateDistancesFromUni() {
+        //loop through all targets, and get the fresh info on how far they are from the uni
         for (int i = 0; i < targets.Count; i++)
         {
             targets[i].distanceToUni = targets[i].EnemyObject.GetComponent<UnityEngine.AI.NavMeshAgent>().remainingDistance;

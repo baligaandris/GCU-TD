@@ -11,7 +11,7 @@ public class GameDataScript : MonoBehaviour {
     public Text usacDisplay;
 
     public GameObject activeTower;
-    RaycastHit hit;
+    private RaycastHit hit;
 
     // Use this for initialization
     void Start () {
@@ -25,7 +25,7 @@ public class GameDataScript : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
 
-
+                //we raycast to where we click
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 
@@ -34,12 +34,13 @@ public class GameDataScript : MonoBehaviour {
 
                     if (hit.collider.gameObject.tag == "Tower")
                     {
-                        StartCoroutine(SlowlyChangeActiveTower());
+                    //if we click on a tower, we change that to be the active tower
+                    StartCoroutine(SlowlyChangeActiveTower());
 
                     }
                     else
                     {
-
+                    //if we don't hit a tower, we just close the menu
                         StartCoroutine(SlowlyCloseRadialMenu());
 
                     }
@@ -64,6 +65,7 @@ public class GameDataScript : MonoBehaviour {
 
     //we will have more things to display, we can keep updating this method, to use it to update all UI elements.
     void UpdateUI() {
+        //this just updates all the values in our health and USAC displays
         healthDisplay.GetComponent<Text>().text = "HP: " + uniHealth;
         usacDisplay.GetComponent<Text>().text = "USAC: " + usac;
     }
@@ -74,7 +76,7 @@ public class GameDataScript : MonoBehaviour {
 			Application.LoadLevel ("EndScene");
 		}
 	}
-
+    //these two coroutines delay changing the active tower by a little to make sure the button click goes through
     IEnumerator SlowlyCloseRadialMenu() {
         yield return new WaitForSeconds(0.1f);
         activeTower = null;

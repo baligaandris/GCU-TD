@@ -3,11 +3,11 @@ using System.Collections;
 
 public class UniScript : MonoBehaviour {
 
-    private GameObject gameData;
+    private GameObject gameData; //our game data object
 
 	// Use this for initialization
 	void Start () {
-        gameData = GameObject.FindGameObjectWithTag("GameData");
+        gameData = GameObject.FindGameObjectWithTag("GameData"); //we get the game data object for later reference
 	}
 	
 	// Update is called once per frame

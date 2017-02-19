@@ -9,7 +9,7 @@ public class EnemyNavScript : MonoBehaviour {
 	void Start () {
         Goal = GameObject.FindGameObjectWithTag("Goal");
         GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(Goal.transform.position);
-        GetComponent<UnityEngine.AI.NavMeshAgent>().updateRotation = false;
+        GetComponent<UnityEngine.AI.NavMeshAgent>().updateRotation = false; //this line makes sure the enemies stay upright and don't rotate around corners. it looks stupid anyway.
 
     }
 	
