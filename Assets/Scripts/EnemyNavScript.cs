@@ -7,6 +7,7 @@ public class EnemyNavScript : MonoBehaviour {
     public GameObject currentWayPoint;
     private Vector3 targetToMoveTo;
     public float speed;
+    public float runawaySpeed;
 
     public float distanceToUni=0;
 
@@ -24,10 +25,21 @@ public class EnemyNavScript : MonoBehaviour {
         //if it reaches the target location
         if (transform.position == targetToMoveTo) {
             //ask the current waypoint for the next waypoint
-            ChangeTargetWaypoint(currentWayPoint.GetComponent<WaypointScript>().nextWayPoint);
+            if (GetComponent<EnemyHealthScript>().runningAway) {
+                Destroy(gameObject);
+            }
+            else
+            {
+                ChangeTargetWaypoint(currentWayPoint.GetComponent<WaypointScript>().nextWayPoint);
+            }
+
+            
         }
         //Calculate remaining distance to university
-        CalculateDistanceToUni();
+        if (GetComponent<EnemyHealthScript>().runningAway == false)
+        {
+            CalculateDistanceToUni();
+        }
     }
 
     //this is cript is called when we want to change the target to move towards
@@ -60,5 +72,17 @@ public class EnemyNavScript : MonoBehaviour {
         }
 
         
+    }
+
+    public void Runaway() {
+        speed = runawaySpeed;
+        GameObject[] exitPoints = GameObject.FindGameObjectsWithTag("ExitPoint");
+        GameObject closestExitPoint = exitPoints[0];
+        for (int i = 1; i < exitPoints.Length; i++) {
+            if (Vector3.Distance(transform.position,closestExitPoint.transform.position) > Vector3.Distance(transform.position, exitPoints[i].transform.position)){
+                closestExitPoint = exitPoints[i];
+            }
+        }
+        targetToMoveTo = closestExitPoint.transform.position;
     }
 }

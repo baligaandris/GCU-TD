@@ -133,7 +133,7 @@ public class TowerShootsScript : MonoBehaviour {
         // loop through all targets, if it has been destroyed, remove it from the list
         for (int i = 0; i < targets.Count; i++)
         {
-            if (targets[i].EnemyObject == null)
+            if (targets[i].EnemyObject == null || targets[i].EnemyObject.GetComponent<EnemyHealthScript>().runningAway)
             {
                 targets.Remove(targets[i]);
                 i--;
