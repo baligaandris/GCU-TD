@@ -10,46 +10,55 @@ public class EnemyNavScript : MonoBehaviour {
 
     public float distanceToUni=0;
 
-    // When the enemy is spawned, their goal is set in the navmesh agent, and they immediately start waking towards it.
+    // When the enemy is spawned, the spawner tells them their first waypoint
     void Start () {
-        //Goal = GameObject.FindGameObjectWithTag("Goal");
-        //GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(Goal.transform.position);
-        //GetComponent<UnityEngine.AI.NavMeshAgent>().updateRotation = false; //this line makes sure the enemies stay upright and don't rotate around corners. it looks stupid anyway.
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        // the enemy moves towards the target at a constant speed
         transform.position = Vector3.MoveTowards(transform.position, targetToMoveTo, speed*Time.deltaTime);
+        //if it reaches the target location
         if (transform.position == targetToMoveTo) {
+            //ask the current waypoint for the next waypoint
             ChangeTargetWaypoint(currentWayPoint.GetComponent<WaypointScript>().nextWayPoint);
         }
+        //Calculate remaining distance to university
         CalculateDistanceToUni();
     }
 
+    //this is cript is called when we want to change the target to move towards
     public void ChangeTargetWaypoint(GameObject newWaypoint)
     {
+        //first, we do the change
         currentWayPoint = newWaypoint;
+        //second, we determine the randomized target, so not all enemies line up, and walk to the exact same target. it adds a slight variation
         targetToMoveTo = new Vector3(currentWayPoint.transform.position.x + Random.Range(-1, 1), 0, currentWayPoint.transform.position.z + Random.Range(-1, 1));
+        //lastly, we recalculate our distance to the uni
         CalculateDistanceToUni();
     }
 
+    //this is how we calculat the distance
     public void CalculateDistanceToUni() {
+        //first set the distance to 0. we will add to it step by step
         distanceToUni = 0;
+        //The first thing to add, is our distance from the current waypoint
         distanceToUni += Vector3.Distance(transform.position, currentWayPoint.transform.position);
+        //then we prep for adding all the other waypoints. For this we need a variable to use to cycle through all the waypoints. We set its value to our current waypoint.
+        //we want to add its distance from the waypoint after it.
         GameObject waypointToAddToCalculation;
-        waypointToAddToCalculation = currentWayPoint.GetComponent<WaypointScript>().nextWayPoint;
+        waypointToAddToCalculation = currentWayPoint;
 
-        if (waypointToAddToCalculation != null)
+        //So while there is waypoint to move on to, we keep adding their distance to our number. when they are done, we have the accurate distance to the uni. :)
+        while (waypointToAddToCalculation.GetComponent<WaypointScript>().nextWayPoint != null)
         {
-            while (waypointToAddToCalculation.GetComponent<WaypointScript>().nextWayPoint != null)
-            {
-                distanceToUni += Vector3.Distance(waypointToAddToCalculation.transform.position, waypointToAddToCalculation.GetComponent<WaypointScript>().nextWayPoint.transform.position);
-                waypointToAddToCalculation = waypointToAddToCalculation.GetComponent<WaypointScript>().nextWayPoint;
-
-            }
+            distanceToUni += Vector3.Distance(waypointToAddToCalculation.transform.position, waypointToAddToCalculation.GetComponent<WaypointScript>().nextWayPoint.transform.position);
+            waypointToAddToCalculation = waypointToAddToCalculation.GetComponent<WaypointScript>().nextWayPoint;
         }
+
         
     }
 }

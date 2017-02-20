@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaypointScript : MonoBehaviour {
 
-    public GameObject nextWayPoint;
+    public GameObject nextWayPoint; //points to the next waypoint
 
 
 	// Use this for initialization
@@ -16,12 +16,5 @@ public class WaypointScript : MonoBehaviour {
 	void Update () {
 
 	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //if (other.gameObject.tag == "Enemy") {
-        //    other.gameObject.GetComponent<EnemyNavScript>().ChangeTargetWaypoint(nextWayPoint);
-        //}
-    }
 
 }
