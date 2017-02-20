@@ -78,7 +78,7 @@ public class TowerShootsScript : MonoBehaviour {
         //Debug.Log("enemy in range"); 
         if (other.gameObject.tag == "Enemy") //when something enters the range, we check if it is an enemy.
         {
-            Enemy newEnemy = new Enemy(other.gameObject, other.gameObject.GetComponent<EnemyHealthScript>().health,other.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().remainingDistance); //if it is an enemy, we add it to our list, allong with its health, and distance from the Uni
+            Enemy newEnemy = new Enemy(other.gameObject, other.gameObject.GetComponent<EnemyHealthScript>().health,other.gameObject.GetComponent<EnemyNavScript>().distanceToUni); //if it is an enemy, we add it to our list, allong with its health, and distance from the Uni
             targets.Add(newEnemy);
         }
     }
@@ -146,7 +146,7 @@ public class TowerShootsScript : MonoBehaviour {
         //loop through all targets, and get the fresh info on how far they are from the uni
         for (int i = 0; i < targets.Count; i++)
         {
-            targets[i].distanceToUni = targets[i].EnemyObject.GetComponent<UnityEngine.AI.NavMeshAgent>().remainingDistance;
+            targets[i].distanceToUni = targets[i].EnemyObject.GetComponent<EnemyNavScript>().distanceToUni;
         }
     } 
 
