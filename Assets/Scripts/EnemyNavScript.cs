@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyNavScript : MonoBehaviour {
 
     //private GameObject Goal;
+    private GameDataScript gameData;
     public GameObject currentWayPoint;
     private Vector3 targetToMoveTo;
     public float speed;
@@ -13,7 +14,7 @@ public class EnemyNavScript : MonoBehaviour {
 
     // When the enemy is spawned, the spawner tells them their first waypoint
     void Start () {
-        
+        gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>();
 
     }
 
@@ -76,6 +77,7 @@ public class EnemyNavScript : MonoBehaviour {
 
     public void Runaway() {
         speed = runawaySpeed;
+        gameData.ChangeUsac(GetComponent<EnemyHealthScript>().usacValue);
         GameObject[] exitPoints = GameObject.FindGameObjectsWithTag("ExitPoint");
         GameObject closestExitPoint = exitPoints[0];
         for (int i = 1; i < exitPoints.Length; i++) {

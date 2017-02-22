@@ -22,8 +22,8 @@ public class EnemyHealthScript : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         //if their health reaches 0, they add their value to the money we have, and they get destroyed
-        if (health <= 0) {
-            gameData.ChangeUsac(usacValue);
+        if (health <= 0 && runningAway == false) {
+
             runningAway = true;
             GetComponent<EnemyNavScript>().Runaway();
         }
