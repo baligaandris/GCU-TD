@@ -14,14 +14,15 @@ public class PauseScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.P)) {
-			if (pauseMenu.gameObject.activeInHierarchy == false) {
-				pauseMenu.gameObject.SetActive (true);
-				Time.timeScale = 0;
-			} else {
-				pauseMenu.gameObject.SetActive (false);
-				Time.timeScale = 1;
-			}
+	}
+
+	public void PauseButton () {
+		if (pauseMenu.gameObject.activeInHierarchy == false) {
+			pauseMenu.gameObject.SetActive (true);
+			Time.timeScale = 0;
+		} else {
+			pauseMenu.gameObject.SetActive (false);
+			Time.timeScale = 1;
 		}
 	}
 }
