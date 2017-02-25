@@ -24,7 +24,7 @@ public class TowerShootsScript : MonoBehaviour {
     public Enemy target;
     public List<Enemy> targets; // this list will contain all the enemies in the range of the tower
     public int damage = 5;
-    private float shootCoolDown = 0;
+    public float shootCoolDown = 0;
     public float fireRate = 0.3f; //how much time passes between shots.
 
     public GameObject projectile;
@@ -52,29 +52,15 @@ public class TowerShootsScript : MonoBehaviour {
 
             if (target.EnemyObject != null)
             {
-                //target.EnemyObject.GetComponent<EnemyHealthScript>().TakeDamage(damage); //deal the damage
-                target.health = target.EnemyObject.GetComponent<EnemyHealthScript>().health; //check in with the enemy to see how much health they actually have
-
-                GameObject newProjectile = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject; //create the projectile
-                newProjectile.GetComponent<ProjectileScript>().myTower = gameObject; //tell the projectile where it was shot from
-
-                //if (target.health <= 0)
-                //{ //if the target we were shooting at just died, remove it from the list
-                //    targets.Remove(targets[0]);
-                //}
-                shootCoolDown = 0; //reset cooldown
+                Shoot();
             }
 
         }
-
-        
-
-
-            
+   
         }
 	
 
-    void OnTriggerEnter(Collider other) {
+    public void OnTriggerEnter(Collider other) {
         //Debug.Log("enemy in range"); 
         if (other.gameObject.tag == "Enemy") //when something enters the range, we check if it is an enemy.
         {
@@ -83,7 +69,7 @@ public class TowerShootsScript : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit(Collider other) {
+    public void OnTriggerExit(Collider other) {
         //when an enemy leaves the range, we cycle through our list, find it, and remove it from the list.
         for (int i = 0; i < targets.Count; i++) {
             if (targets[i].EnemyObject == other.gameObject) {
@@ -101,7 +87,7 @@ public class TowerShootsScript : MonoBehaviour {
 
     }
 
-    void DetermineNewTarget() {
+    public void DetermineNewTarget() {
         //if there are no enemies in range, the empty the target variable
         if (targets.Count == 0)
         {
@@ -129,7 +115,7 @@ public class TowerShootsScript : MonoBehaviour {
 
     }
 
-    void CleanUpDestroyedTargets() {
+    public void CleanUpDestroyedTargets() {
         // loop through all targets, if it has been destroyed, remove it from the list
         for (int i = 0; i < targets.Count; i++)
         {
@@ -142,15 +128,23 @@ public class TowerShootsScript : MonoBehaviour {
         }
     }
 
-    void UpdateDistancesFromUni() {
+    public void UpdateDistancesFromUni() {
         //loop through all targets, and get the fresh info on how far they are from the uni
         for (int i = 0; i < targets.Count; i++)
         {
             targets[i].distanceToUni = targets[i].EnemyObject.GetComponent<EnemyNavScript>().distanceToUni;
         }
-    } 
+    }
 
+    public virtual void Shoot() {
+        //target.EnemyObject.GetComponent<EnemyHealthScript>().TakeDamage(damage); //deal the damage
+        target.health = target.EnemyObject.GetComponent<EnemyHealthScript>().health; //check in with the enemy to see how much health they actually have
 
+        GameObject newProjectile = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject; //create the projectile
+        newProjectile.GetComponent<ProjectileScript>().myTower = gameObject; //tell the projectile where it was shot from
+
+        shootCoolDown = 0; //reset cooldown
+    }
 
 
 }
