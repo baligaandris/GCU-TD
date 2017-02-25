@@ -5,47 +5,13 @@ using UnityEngine;
 public class AOETowerScript : TowerShootsScript
 {
 
-
-
 	// Use this for initialization
 	void Start () {
-        targets = new List<Enemy>(); //run the constuctor of the list
-    }
+		
+	}
 	
 	// Update is called once per frame
 	void Update () {
-        CleanUpDestroyedTargets();
-        
-        shootCoolDown += Time.deltaTime; //tick the cooldown
-        if (targets.Count != 0 && shootCoolDown >= fireRate)
-        {
-
-
-
-            //selecting the target closest to the uni
-
-
-
-
-            if (target.EnemyObject != null)
-            {
-                Shoot();
-            }
-
-        }
-    }
-
-    public override void Shoot()
-    {
-
-        
-        for(int i = 0; i < targets.Count; i++)
-        {
-            targets[i].EnemyObject.GetComponent<EnemyHealthScript>().TakeDamage(damage);
-        }
-        
-
-        shootCoolDown = 0; //reset cooldown
-    }
-
+		
+	}
 }

@@ -87,8 +87,4 @@ public class EnemyNavScript : MonoBehaviour {
         }
         targetToMoveTo = closestExitPoint.transform.position;
     }
-
-    public void SlowMeDown(float slowBy, float slowDuration) {
-
-    }
 }
