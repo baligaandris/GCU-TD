@@ -24,14 +24,24 @@ public class TowerShootsScript : MonoBehaviour {
     public Enemy target;
     public List<Enemy> targets; // this list will contain all the enemies in the range of the tower
     public int damage = 5;
+    public float slowEnemyBy = 0;
+    public float slowEnemyFor = 0;
     public float shootCoolDown = 0;
     public float fireRate = 0.3f; //how much time passes between shots.
 
+    public int level = 0;
+    public int cost = 100;
+
     public GameObject projectile;
+    public GameObject nextLevelTower;
+
+    public enum targeting {First, Strongest, Closest};
+    public targeting myTargetingMethod = targeting.First;
 
 	// Use this for initialization
 	void Start () {
         targets = new List<Enemy>(); //run the constuctor of the list
+
 	}
 	
 	// Update is called once per frame
@@ -87,20 +97,24 @@ public class TowerShootsScript : MonoBehaviour {
 
     }
 
-    public void DetermineNewTarget() {
+    public void DetermineNewTarget()
+    {
         //if there are no enemies in range, the empty the target variable
         if (targets.Count == 0)
         {
             target = null;
         }
-        else {
+        else
+        {
             //if not, then just put the first enemy as our target for now
             target = targets[0];
         }
 
-        for (int i = 0; i < targets.Count; i++)
+        if (myTargetingMethod == targeting.First)
         {
-            //Now we compare ever enemy's distance to the university. if it is closer than the target, then we put it as target. After the loop finishes, we will have the closest enemy as target
+            for (int i = 0; i < targets.Count; i++)
+            {
+                //Now we compare ever enemy's distance to the university. if it is closer than the target, then we put it as target. After the loop finishes, we will have the closest enemy as target
                 if (target.distanceToUni > targets[i].distanceToUni)
                 {
                     //Debug.Log("I changed the target");
@@ -110,9 +124,37 @@ public class TowerShootsScript : MonoBehaviour {
                     }
                 }
 
+            }
         }
-
-
+        else if (myTargetingMethod == targeting.Strongest)
+        {
+            for (int i = 0; i < targets.Count; i++)
+            {
+                //Now we compare ever enemy's distance to the university. if it is closer than the target, then we put it as target. After the loop finishes, we will have the closest enemy as target
+                if (target.EnemyObject.GetComponent<EnemyHealthScript>().health > targets[i].EnemyObject.GetComponent<EnemyHealthScript>().health)
+                {
+                    //Debug.Log("I changed the target");
+                    if (targets[i].EnemyObject != null)
+                    {
+                        target = targets[i];
+                    }
+                }
+            }
+        }
+        else if (myTargetingMethod == targeting.Closest) {
+            for (int i = 0; i < targets.Count; i++)
+            {
+                //Now we compare ever enemy's distance to the university. if it is closer than the target, then we put it as target. After the loop finishes, we will have the closest enemy as target
+                if (Vector3.Distance(target.EnemyObject.transform.position,transform.position) > Vector3.Distance(targets[i].EnemyObject.transform.position,transform.position))
+                {
+                    //Debug.Log("I changed the target");
+                    if (targets[i].EnemyObject != null)
+                    {
+                        target = targets[i];
+                    }
+                }
+            }
+        }
     }
 
     public void CleanUpDestroyedTargets() {

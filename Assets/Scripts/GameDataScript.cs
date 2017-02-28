@@ -10,6 +10,7 @@ public class GameDataScript : MonoBehaviour {
     public Text healthDisplay;
     public Text usacDisplay;
 
+    public TowerRadialMenuScript radialMenu;
     public GameObject activeTower;
     private RaycastHit hit;
 
@@ -17,7 +18,7 @@ public class GameDataScript : MonoBehaviour {
     void Start () {
         UpdateUI();
         hit = new RaycastHit();
-
+        radialMenu = GameObject.FindGameObjectWithTag("RadialMenu").GetComponent<TowerRadialMenuScript>();
     }
 	
 	// Update is called once per frame
@@ -25,27 +26,31 @@ public class GameDataScript : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
 
-                //we raycast to where we click
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //we raycast to where we click
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-
+            if (activeTower == null)
+            {
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
 
                     if (hit.collider.gameObject.tag == "Tower")
                     {
-                    //if we click on a tower, we change that to be the active tower
-                    StartCoroutine(SlowlyChangeActiveTower());
-
+                        //if we click on a tower, we change that to be the active tower
+                        //StartCoroutine(SlowlyChangeActiveTower());
+                        activeTower = hit.collider.gameObject;
+                        radialMenu.ActivateRadialMenu();
                     }
-                    else
-                    {
-                    //if we don't hit a tower, we just close the menu
-                        StartCoroutine(SlowlyCloseRadialMenu());
+                    //else
+                    //{
+                    //    //if we don't hit a tower, we just close the menu
+                    //    StartCoroutine(SlowlyCloseRadialMenu());
 
-                    }
+                    //}
                 }
             }
+        }
+            
 
         StartCoroutine (DelayLoadEndScene());
 	}

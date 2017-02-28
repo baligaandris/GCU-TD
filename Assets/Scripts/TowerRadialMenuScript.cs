@@ -8,42 +8,148 @@ public class TowerRadialMenuScript : MonoBehaviour {
     private GameObject activeTower; //this is where we will temporarily store the active tower. it needs to be updated every frame, to make sure we do stuff to the right tower.
     private GameDataScript gameData; //this is where we will store a reference to our game data script
 
-	// Use this for initialization
-	void Start () {
-        gameData = GameObject.FindWithTag("GameData").GetComponent<GameDataScript>(); 
-        //we get the gamedata script for later reference
+    private TowerRadialMenuScript levelUpRadialMenu;
+    private TowerRadialMenuScript targetingRadialMenu;
 
+    public GameObject aoeTower;
+    public GameObject sniperTower;
+    public GameObject slowTower;
+    public GameObject buffTower;
+
+    // Use this for initialization
+    void Start () {
+        gameData = GameObject.FindWithTag("GameData").GetComponent<GameDataScript>();
+        //we get the gamedata script for later reference
+        levelUpRadialMenu = GameObject.FindGameObjectWithTag("LevelUpRadialMenu").GetComponent<TowerRadialMenuScript>();
+        targetingRadialMenu = GameObject.FindGameObjectWithTag("TargetingRadialMenu").GetComponent<TowerRadialMenuScript>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         //we get the active tower to make sure it we are doing things to the right tower.
-        activeTower = gameData.activeTower;
+
         //if there is an active tower, we make the menu visible. this means the circle and all the little buttons attached to it as children. 
-        if (activeTower != null)
-        {
-            GetComponent<RawImage>().enabled = true;
-            int numberOfChildren = transform.childCount;
-            for (int i = 0; i < numberOfChildren; i++) {
-                transform.GetChild(i).gameObject.SetActive(true);
-            }
-            //we also move it to sit on top of the active tower
-            transform.position = Camera.main.WorldToScreenPoint(activeTower.transform.position);
-        }
-        else {
-            //if there is no active tower, we turn this menu, and all children of it off
-            int numberOfChildren = transform.childCount;
-            GetComponent<RawImage>().enabled = false;
-            for (int i = 0; i < numberOfChildren; i++)
-            {
-                transform.GetChild(i).gameObject.SetActive(false);
-            }
-        }
+        //if (activeTower != null)
+        //{
+        //    ActivateRadialMenu();
+        //}
+        //else {
+        //    DeactivateRadialMenu();
+        //}
 
 	}
 
     public void Button1Click() {
         Debug.Log("Button clicked");
 
+    }
+
+    public void CancelButtonClick() {
+        gameData.activeTower = null;
+        DeactivateRadialMenu();
+    }
+    public void ActivateRadialMenu()
+    {
+        activeTower = gameData.activeTower;
+        GetComponent<RawImage>().enabled = true;
+        int numberOfChildren = transform.childCount;
+        for (int i = 0; i < numberOfChildren; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
+        //we also move it to sit on top of the active tower
+        if (activeTower.GetComponentInChildren<TowerShootsScript>().level == 4) {
+            transform.Find("Level Up button").gameObject.SetActive(false);
+        }
+        transform.position = Camera.main.WorldToScreenPoint(activeTower.transform.position);
+    }
+
+    public void DeactivateRadialMenu() {
+        //if there is no active tower, we turn this menu, and all children of it off
+        int numberOfChildren = transform.childCount;
+        GetComponent<RawImage>().enabled = false;
+        for (int i = 0; i < numberOfChildren; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
+    void OpenLevelUpMenu() {
+        levelUpRadialMenu.ActivateRadialMenu();
+        DeactivateRadialMenu();
+    }
+
+    public void OpenTargetingMenu() {
+        targetingRadialMenu.ActivateRadialMenu();
+        DeactivateRadialMenu();
+    }
+
+    public void LevelUpButtonClicked() {
+
+        if (activeTower.GetComponentInChildren<TowerShootsScript>().level == 0)
+        {
+            OpenLevelUpMenu();
+        }
+        else {
+            GameObject nextLevelTower = activeTower.GetComponentInChildren<TowerShootsScript>().nextLevelTower;
+            
+            UpgradeTo(nextLevelTower);
+            
+        }
+        
+    }
+
+    private void UpgradeTo(GameObject HigherLevelTower) {
+        if (gameData.usac > HigherLevelTower.GetComponentInChildren<TowerShootsScript>().cost)
+        {
+            gameData.ChangeUsac(-HigherLevelTower.GetComponentInChildren<TowerShootsScript>().cost);
+            Instantiate(HigherLevelTower, activeTower.transform.position, Quaternion.identity);
+
+            Destroy(activeTower);
+            DeactivateRadialMenu();
+        }
+    }
+
+    public void AOEButtonClicked() {
+        UpgradeTo(aoeTower);
+    }
+
+    public void SniperButtonClicked()
+    {
+        UpgradeTo(sniperTower);
+    }
+
+    public void SlowingButtonClicked()
+    {
+        UpgradeTo(slowTower);
+    }
+
+    public void BuffingButtonClicked()
+    {
+        UpgradeTo(buffTower);
+    }
+
+    public void SellButtonClicked() {
+        gameData.ChangeUsac(activeTower.GetComponentInChildren<TowerShootsScript>().cost);
+        Destroy(activeTower);
+        DeactivateRadialMenu();
+    }
+
+    public void TargetingFirstClicked() {
+        activeTower.GetComponentInChildren<TowerShootsScript>().myTargetingMethod = TowerShootsScript.targeting.First;
+        DeactivateRadialMenu();
+        gameData.activeTower = null;
+    }
+    public void TargetingStrongClicked()
+    {
+        activeTower.GetComponentInChildren<TowerShootsScript>().myTargetingMethod = TowerShootsScript.targeting.Strongest;
+        DeactivateRadialMenu();
+        gameData.activeTower = null;
+    }
+    public void TargetingCloseClicked()
+    {
+        activeTower.GetComponentInChildren<TowerShootsScript>().myTargetingMethod = TowerShootsScript.targeting.Closest;
+        DeactivateRadialMenu();
+        gameData.activeTower = null;
     }
 }

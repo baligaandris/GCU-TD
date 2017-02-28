@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ProjectileScript : MonoBehaviour {
 
@@ -30,6 +31,7 @@ public class ProjectileScript : MonoBehaviour {
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
             if (transform.position == target.transform.position){
                 target.GetComponent<EnemyHealthScript>().TakeDamage(myTower.GetComponent<TowerShootsScript>().damage);
+                target.GetComponent<EnemyNavScript>().SlowMeDown(myTower.GetComponent<TowerShootsScript>().slowEnemyBy,myTower.GetComponent<TowerShootsScript>().slowEnemyFor);
                 Destroy(gameObject);
             }
 

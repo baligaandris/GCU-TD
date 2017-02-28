@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public int towerPrice;
+    private int towerPrice;
     public GameObject tower;
     GameObject hoverTower;
 
@@ -13,6 +13,7 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Use this for initialization
     void Start()
     {
+        towerPrice = tower.GetComponentInChildren<TowerShootsScript>().cost;
         gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>();
         hoverTower = Instantiate(tower);
         hoverTower.SetActive(false);

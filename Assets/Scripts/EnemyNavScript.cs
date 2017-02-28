@@ -7,20 +7,27 @@ public class EnemyNavScript : MonoBehaviour {
     private GameDataScript gameData;
     public GameObject currentWayPoint;
     private Vector3 targetToMoveTo;
-    public float speed;
+    public float initialSpeed;
+    private float speed;
     public float runawaySpeed;
 
     public float distanceToUni=0;
+    private float slowdownTimer = 0;
 
     // When the enemy is spawned, the spawner tells them their first waypoint
     void Start () {
         gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>();
-
+        speed = initialSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
+        slowdownTimer -= Time.deltaTime;
+        if (slowdownTimer <= 0) {
+            speed = initialSpeed;
+        }
+        
         // the enemy moves towards the target at a constant speed
         transform.position = Vector3.MoveTowards(transform.position, targetToMoveTo, speed*Time.deltaTime);
         //if it reaches the target location
@@ -89,6 +96,11 @@ public class EnemyNavScript : MonoBehaviour {
     }
 
     public void SlowMeDown(float slowBy, float slowDuration) {
-
+        if (speed == initialSpeed)
+        {
+            speed -= speed * slowBy;
+            slowdownTimer = slowDuration;
+        }
+        
     }
 }
