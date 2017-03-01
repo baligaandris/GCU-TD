@@ -26,6 +26,7 @@ public class Wave {
 
 public class SpawnEnemy : MonoBehaviour {
     public Button waveStarterButton;
+    public Text waveCounterText;
     public GameObject firstWaypoint;
     public GameObject enemyToSpawn;
     public int numberOfEnemiesToSpawn;
@@ -41,7 +42,7 @@ public class SpawnEnemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        UpdateWaveCounterUI();
 	}
 	
 	// Update is called once per frame
@@ -67,7 +68,7 @@ public class SpawnEnemy : MonoBehaviour {
         {
             if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && currentWavePart == waveSystem[currentWave].wave.Length)
             {
-                waveStarterButton.GetComponentInChildren<Text>().text = "Let the come!!";
+                waveStarterButton.GetComponentInChildren<Text>().text = "Start Next Wave";
                 currentWavePart = 0;
                 waveInProgress = false;
 
@@ -86,6 +87,7 @@ public class SpawnEnemy : MonoBehaviour {
         {
             currentWave++;
             waveInProgress = true;
+            UpdateWaveCounterUI();
             waveStarterButton.GetComponentInChildren<Text>().text = ">>";
         }
         else if (speedUp == false) {
@@ -102,5 +104,11 @@ public class SpawnEnemy : MonoBehaviour {
         //    GameObject newEnemy = Instantiate(enemyToSpawn, new Vector3(transform.position.x + Random.Range(-1, 1), 0, transform.position.z + Random.Range(-1, 1)), Quaternion.identity);
         //    newEnemy.GetComponent<EnemyNavScript>().ChangeTargetWaypoint(firstWaypoint);
         //}
+    }
+
+    private void UpdateWaveCounterUI() {
+        int waveNumberToDistplay = currentWave + 1;
+            waveCounterText.GetComponent<Text>().text = waveNumberToDistplay.ToString() + " / " + waveSystem.Length.ToString();
+
     }
 }
