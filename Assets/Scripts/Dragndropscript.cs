@@ -52,11 +52,11 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             hits = Physics.RaycastAll(ray, 50f);
             if (hits != null && hits.Length > 0)
                 foreach (GameObject buildableArea in buildableAreas)
-                    foreach(GameObject tower in allTowers)        
-                    if (hits != null)
-                    {
-                        MaybeShowHoverPrefab(hits);
-                    }
+                    foreach (GameObject tower in allTowers)
+                        if (hits != null)
+                        {
+                            MaybeShowHoverTower(hits);
+                        }
         }
     }
 
@@ -74,7 +74,7 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 
 
-    void MaybeShowHoverPrefab(RaycastHit[] hits)
+    void MaybeShowHoverTower(RaycastHit[] hits)
     {
         int terrainColliderQuadIndex = GetTerrainColliderQuadIndex(hits);
         BoxCollider bc = hoverTower.GetComponent<BoxCollider>();
@@ -84,7 +84,7 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             hoverTower.SetActive(true);
         }
         else
-        {              
+        {
             hoverTower.SetActive(false);
         }
     }
