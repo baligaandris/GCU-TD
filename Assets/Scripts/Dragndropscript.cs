@@ -7,8 +7,9 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private int towerPrice;
     public GameObject tower;
     GameObject hoverTower;
-
+    public GameObject[] buildableAreas;
     private GameDataScript gameData;
+    public GameObject[] allTowers;
 
     // Use this for initialization
     void Start()
@@ -17,6 +18,7 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>();
         hoverTower = Instantiate(tower);
         hoverTower.SetActive(false);
+        hoverTower.GetComponentInChildren<SpriteRenderer>().enabled = true;
         RemoveFunctionFromPrefab();
     }
 
@@ -28,6 +30,8 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Destroy(component);
         }
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -47,19 +51,41 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             hits = Physics.RaycastAll(ray, 50f);
             if (hits != null && hits.Length > 0)
+                foreach (GameObject buildableArea in buildableAreas)
+                    foreach(GameObject tower in allTowers)        
+                    if (hits != null)
+                    {
+                        MaybeShowHoverPrefab(hits);
+                    }
+        }
+    }
+
+    int GetBuildableAreaIndex(RaycastHit[] hits)
+    {
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].collider.gameObject.name.Equals("BuildableArea"))
             {
-                int terrainCollderQuadIndex = GetTerrainColliderQuadIndex(hits);
-                if (terrainCollderQuadIndex != -1)
-                {
-                    hoverTower.transform.position = hits[terrainCollderQuadIndex].point;
-                    hoverTower.SetActive(true);
-                    // Debug.Log (hits [terrainCollderQuadIndex].point);
-                }
-                else
-                {
-                    hoverTower.SetActive(false);
-                }
+                return i;
             }
+        }
+        return -1;
+    }
+
+
+
+    void MaybeShowHoverPrefab(RaycastHit[] hits)
+    {
+        int terrainColliderQuadIndex = GetTerrainColliderQuadIndex(hits);
+        BoxCollider bc = hoverTower.GetComponent<BoxCollider>();
+        if (terrainColliderQuadIndex != -1)
+        {
+            hoverTower.transform.position = hits[terrainColliderQuadIndex].point;
+            hoverTower.SetActive(true);
+        }
+        else
+        {              
+            hoverTower.SetActive(false);
         }
     }
 
@@ -67,7 +93,7 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         for (int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].collider.gameObject.name.Equals("TerrainColliderQuad"))
+            if (hits[i].collider.gameObject.name.Equals("BuildableArea"))
             {
                 return i;
             }

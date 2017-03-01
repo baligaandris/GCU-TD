@@ -26,6 +26,7 @@ public class EnemyHealthScript : MonoBehaviour {
 
             runningAway = true;
             GetComponent<EnemyNavScript>().Runaway();
+            health = 0;
         }
 	}
 
