@@ -16,7 +16,7 @@ public class ProjectileScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //if there are no more targets within range of my tower, just destroy self
-        if (myTower.GetComponent<TowerShootsScript>().targets.Count == 0|| myTower.GetComponent<TowerShootsScript>().target == null||myTower.GetComponent<TowerShootsScript>().target.EnemyObject==null)
+        if (myTower ==null ||myTower.GetComponent<TowerShootsScript>().targets.Count == 0|| myTower.GetComponent<TowerShootsScript>().target == null||myTower.GetComponent<TowerShootsScript>().target.EnemyObject==null)
         {
             Destroy(gameObject);
         }
@@ -30,8 +30,11 @@ public class ProjectileScript : MonoBehaviour {
             transform.rotation = Quaternion.LookRotation(target.transform.position-transform.position);
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
             if (transform.position == target.transform.position){
-                target.GetComponent<EnemyHealthScript>().TakeDamage(myTower.GetComponent<TowerShootsScript>().damage);
-                target.GetComponent<EnemyNavScript>().SlowMeDown(myTower.GetComponent<TowerShootsScript>().slowEnemyBy,myTower.GetComponent<TowerShootsScript>().slowEnemyFor);
+                if (target.GetComponent<EnemyHealthScript>().health > 0)
+                {
+                    target.GetComponent<EnemyHealthScript>().TakeDamage(myTower.GetComponent<TowerShootsScript>().damage);
+                    target.GetComponent<EnemyNavScript>().SlowMeDown(myTower.GetComponent<TowerShootsScript>().slowEnemyBy, myTower.GetComponent<TowerShootsScript>().slowEnemyFor);
+                }
                 Destroy(gameObject);
             }
 
