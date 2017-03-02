@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class GameDataScript : MonoBehaviour {
 
-    public int uniHealth = 100;
+    public float uniHealth = 100;
     public int usac = 500;
 
     public Text healthDisplay;
@@ -56,7 +56,7 @@ public class GameDataScript : MonoBehaviour {
 	}
 
     //we call this script, when an enemy walks into the Uni, to deal damage to it.
-    public void TakeDamage(int damage) {
+    public void TakeDamage(float damage) {
         uniHealth -= damage;
         UpdateUI();
 

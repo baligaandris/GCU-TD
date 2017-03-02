@@ -7,10 +7,10 @@ using System.Collections.Generic;
 public class Enemy
 {
     public GameObject EnemyObject;
-    public int health;
+    public float health;
     public float distanceToUni;
     
-    public Enemy(GameObject enemyIn, int hp, float dist)
+    public Enemy(GameObject enemyIn, float hp, float dist)
     {
         EnemyObject = enemyIn;
         health = hp;
@@ -23,7 +23,7 @@ public class TowerShootsScript : MonoBehaviour {
 
     public Enemy target;
     public List<Enemy> targets; // this list will contain all the enemies in the range of the tower
-    public int damage = 5;
+    public float damage = 5;
     public float slowEnemyBy = 0;
     public float slowEnemyFor = 0;
     public float shootCoolDown = 0;

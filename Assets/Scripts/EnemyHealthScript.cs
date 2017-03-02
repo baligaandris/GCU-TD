@@ -5,9 +5,9 @@ public class EnemyHealthScript : MonoBehaviour {
 
     public int usacValue = 10; //this is the money value of this enemy
     private GameDataScript gameData; // reference to the gamedatascript, the one and only
-    public int health = 100; //how much health the enemy starts with
+    public float health = 100; //how much health the enemy starts with
     public float currentHealth; // how much health the enemy has
-    public int damage = 1; //how much damage they deal to the Uni, if they reach it
+    public float damage = 1; //how much damage they deal to the Uni, if they reach it
     public bool runningAway = false;
 
     public delegate void HealthChanged(float currentHealth, float health);
@@ -26,12 +26,13 @@ public class EnemyHealthScript : MonoBehaviour {
 
             runningAway = true;
             GetComponent<EnemyNavScript>().Runaway();
+            currentHealth = 0;
             health = 0;
         }
 	}
 
     //this method is called by the towers to deal damage to the enemy
-    public void TakeDamage(int damage) {
+    public void TakeDamage(float damage) {
         health -= damage;
         if (OnHealthChanged != null)
         {
