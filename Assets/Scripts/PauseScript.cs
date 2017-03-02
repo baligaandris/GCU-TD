@@ -25,4 +25,12 @@ public class PauseScript : MonoBehaviour {
 			Time.timeScale = 1;
 		}
 	}
+    public void QuitButton() {
+        Application.Quit();
+
+    }
+
+    public void MainMenuButton() {
+        Application.LoadLevel("MainMenuScene");
+    }
 }
