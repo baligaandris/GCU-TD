@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaypointScript : MonoBehaviour {
-
-    public GameObject nextWayPoint; //points to the next waypoint
-	public enum direction {up, down, left, right};
-	public direction dir;
-
+public class AnimationScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +11,6 @@ public class WaypointScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 	}
-
 }

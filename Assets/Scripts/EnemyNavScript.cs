@@ -38,6 +38,22 @@ public class EnemyNavScript : MonoBehaviour {
             }
             else
             {
+                if(currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.down){
+                    GetComponentInChildren<Animator>().SetTrigger("WaypointDown");
+                }
+                else
+                if(currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.up){
+                    GetComponentInChildren<Animator>().SetTrigger("WaypointUp");
+                }
+                else
+                if(currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.left){
+                    GetComponentInChildren<Animator>().SetTrigger("WaypointLeft");
+                }
+                else
+                if(currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.right){
+                    GetComponentInChildren<Animator>().SetTrigger("WaypointRight");
+                }
+              
                 ChangeTargetWaypoint(currentWayPoint.GetComponent<WaypointScript>().nextWayPoint);
             }
 
