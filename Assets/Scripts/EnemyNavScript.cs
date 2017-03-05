@@ -72,7 +72,7 @@ public class EnemyNavScript : MonoBehaviour {
         //first, we do the change
         currentWayPoint = newWaypoint;
         //second, we determine the randomized target, so not all enemies line up, and walk to the exact same target. it adds a slight variation
-        targetToMoveTo = new Vector3(currentWayPoint.transform.position.x + Random.Range(-1, 1), 0, currentWayPoint.transform.position.z + Random.Range(-1, 1));
+        targetToMoveTo = new Vector3(currentWayPoint.transform.position.x + Random.Range(-0.35f, 0.35f), 0, currentWayPoint.transform.position.z + Random.Range(-0.35f, 0.35f));
         //lastly, we recalculate our distance to the uni
         CalculateDistanceToUni();
     }

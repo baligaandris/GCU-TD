@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BuffingTower : MonoBehaviour {
     public GameObject [] Towers = new GameObject [16];
-    
+    public float buffingSpeed;
+    public float buffingDamage;
 
 	// Use this for initialization
 	void Start () {
@@ -24,9 +25,9 @@ public class BuffingTower : MonoBehaviour {
         if (collider.gameObject.tag == "Tower")
         {
             TowerShootsScript dmg = collider.gameObject.GetComponentInChildren<TowerShootsScript>();
-            dmg.damage += collider.gameObject.GetComponentInChildren<TowerShootsScript>().damage * 0.2f;
+            dmg.damage += collider.gameObject.GetComponentInChildren<TowerShootsScript>().damage * buffingDamage;
             TowerShootsScript spd = collider.gameObject.GetComponentInChildren<TowerShootsScript>();
-            spd.fireRate -= collider.gameObject.GetComponentInChildren<TowerShootsScript>().fireRate * 0.2f;
+            spd.fireRate -= collider.gameObject.GetComponentInChildren<TowerShootsScript>().fireRate * buffingSpeed;
 
             
             Debug.Log(dmg.damage);
