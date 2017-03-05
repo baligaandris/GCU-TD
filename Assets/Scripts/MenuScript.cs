@@ -6,7 +6,7 @@ using UnityEngine;
 public class MenuScript : MonoBehaviour {
 
 public GameObject narrativeCanvas;
-public Transform tutorialMenu;
+
 
 	IEnumerator DelayLoadMainLevel (){
 		GetComponent<AudioSource> ().Play ();
@@ -33,9 +33,7 @@ public Transform tutorialMenu;
 	
 	// Update is called once per frame
 	void Update () {
-		if (tutorialMenu.gameObject.activeInHierarchy == true) {
-			Time.timeScale = 0;
-		}
+		
 	}
 
 	public void LoadMainLevel(){
@@ -53,9 +51,4 @@ public Transform tutorialMenu;
 		StartCoroutine (DelayLoadStartMenu ());
 	}
 
-	public void ContinueGame() {
-		tutorialMenu.gameObject.SetActive (false);
-		Time.timeScale = 1;
-		
-	}
 }
