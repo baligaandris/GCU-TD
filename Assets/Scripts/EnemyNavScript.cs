@@ -119,4 +119,6 @@ public class EnemyNavScript : MonoBehaviour {
         }
         
     }
+
+    
 }

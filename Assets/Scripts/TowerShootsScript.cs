@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 //this is the enemy class, it contains a gameobject, that point to a gameobject in the scene, and a health, that tracks their hp, so we know when they die
 [System.Serializable]
@@ -77,6 +78,8 @@ public class TowerShootsScript : MonoBehaviour {
             Enemy newEnemy = new Enemy(other.gameObject, other.gameObject.GetComponent<EnemyHealthScript>().health,other.gameObject.GetComponent<EnemyNavScript>().distanceToUni); //if it is an enemy, we add it to our list, allong with its health, and distance from the Uni
             targets.Add(newEnemy);
         }
+
+        
     }
 
     public void OnTriggerExit(Collider other) {
@@ -186,7 +189,5 @@ public class TowerShootsScript : MonoBehaviour {
         newProjectile.GetComponent<ProjectileScript>().myTower = gameObject; //tell the projectile where it was shot from
 
         shootCoolDown = 0; //reset cooldown
-    }
-
-
+    }  
 }
