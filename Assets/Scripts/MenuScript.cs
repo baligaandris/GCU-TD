@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MenuScript : MonoBehaviour {
+
+public GameObject narrativeCanvas;
+public Transform tutorialMenu;
 
 	IEnumerator DelayLoadMainLevel (){
 		GetComponent<AudioSource> ().Play ();
-		yield return new WaitForSeconds (GetComponent<AudioSource> ().clip.length);
-		Application.LoadLevel ("PrototypeScene");
+		narrativeCanvas.gameObject.SetActive (true);
+		yield return new WaitForSeconds (12);
+		Application.LoadLevel ("InterimScene");
 	}
 
 	IEnumerator DelayQuitGame(){
@@ -28,7 +33,9 @@ public class MenuScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (tutorialMenu.gameObject.activeInHierarchy == true) {
+			Time.timeScale = 0;
+		}
 	}
 
 	public void LoadMainLevel(){
@@ -44,5 +51,11 @@ public class MenuScript : MonoBehaviour {
 	public void LoadStartMenu() {
 	
 		StartCoroutine (DelayLoadStartMenu ());
+	}
+
+	public void ContinueGame() {
+		tutorialMenu.gameObject.SetActive (false);
+		Time.timeScale = 1;
+		
 	}
 }
