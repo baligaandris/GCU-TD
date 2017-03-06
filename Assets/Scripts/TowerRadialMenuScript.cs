@@ -16,6 +16,8 @@ public class TowerRadialMenuScript : MonoBehaviour {
     public GameObject slowTower;
     public GameObject buffTower;
 
+
+
     // Use this for initialization
     void Start () {
         gameData = GameObject.FindWithTag("GameData").GetComponent<GameDataScript>();
@@ -36,7 +38,9 @@ public class TowerRadialMenuScript : MonoBehaviour {
         //else {
         //    DeactivateRadialMenu();
         //}
-
+        if (transform.localScale.y < 1 && GetComponent<RawImage>().enabled == true) {
+            gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x + 5 * Time.deltaTime, gameObject.transform.localScale.y + 5 * Time.deltaTime, gameObject.transform.localScale.z + 5 * Time.deltaTime);
+        }
 	}
 
     public void Button1Click() {
@@ -62,6 +66,7 @@ public class TowerRadialMenuScript : MonoBehaviour {
             transform.Find("Level Up button").gameObject.SetActive(false);
         }
         transform.position = Camera.main.WorldToScreenPoint(activeTower.transform.position);
+        transform.localScale = new Vector3(0,0,0);
     }
 
     public void DeactivateRadialMenu() {
