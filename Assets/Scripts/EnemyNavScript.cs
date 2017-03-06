@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyNavScript : MonoBehaviour {
+public class EnemyNavScript : MonoBehaviour
+{
 
     //private GameObject Goal;
     private GameDataScript gameData;
@@ -10,12 +11,14 @@ public class EnemyNavScript : MonoBehaviour {
     public float initialSpeed;
     private float speed;
     public float runawaySpeed;
+    public bool isFlying = false;
 
-    public float distanceToUni=0;
+    public float distanceToUni = 0;
     private float slowdownTimer = 0;
 
     // When the enemy is spawned, the spawner tells them their first waypoint
-    void Start () {
+    void Start()
+    {
         gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>();
         speed = initialSpeed;
     }
@@ -24,40 +27,47 @@ public class EnemyNavScript : MonoBehaviour {
     void Update()
     {
         slowdownTimer -= Time.deltaTime;
-        if (slowdownTimer <= 0) {
+        if (slowdownTimer <= 0)
+        {
             speed = initialSpeed;
         }
-        
+
         // the enemy moves towards the target at a constant speed
-        transform.position = Vector3.MoveTowards(transform.position, targetToMoveTo, speed*Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetToMoveTo, speed * Time.deltaTime);
         //if it reaches the target location
-        if (transform.position == targetToMoveTo) {
+        if (transform.position == targetToMoveTo)
+        {
             //ask the current waypoint for the next waypoint
-            if (GetComponent<EnemyHealthScript>().runningAway) {
+            if (GetComponent<EnemyHealthScript>().runningAway)
+            {
                 Destroy(gameObject);
             }
             else
             {
-                if(currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.down){
+                if (currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.down)
+                {
                     GetComponentInChildren<Animator>().SetTrigger("WaypointDown");
                 }
                 else
-                if(currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.up){
+                if (currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.up)
+                {
                     GetComponentInChildren<Animator>().SetTrigger("WaypointUp");
                 }
                 else
-                if(currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.left){
+                if (currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.left)
+                {
                     GetComponentInChildren<Animator>().SetTrigger("WaypointLeft");
                 }
                 else
-                if(currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.right){
+                if (currentWayPoint.GetComponent<WaypointScript>().dir == WaypointScript.direction.right)
+                {
                     GetComponentInChildren<Animator>().SetTrigger("WaypointRight");
                 }
-              
+
                 ChangeTargetWaypoint(currentWayPoint.GetComponent<WaypointScript>().nextWayPoint);
             }
 
-            
+
         }
         //Calculate remaining distance to university
         if (GetComponent<EnemyHealthScript>().runningAway == false)
@@ -72,13 +82,14 @@ public class EnemyNavScript : MonoBehaviour {
         //first, we do the change
         currentWayPoint = newWaypoint;
         //second, we determine the randomized target, so not all enemies line up, and walk to the exact same target. it adds a slight variation
-        targetToMoveTo = new Vector3(currentWayPoint.transform.position.x + Random.Range(-0.35f, 0.35f), 0, currentWayPoint.transform.position.z + Random.Range(-0.35f, 0.35f));
+        targetToMoveTo = new Vector3(currentWayPoint.transform.position.x + Random.Range(-1, 1), 0, currentWayPoint.transform.position.z + Random.Range(-1, 1));
         //lastly, we recalculate our distance to the uni
         CalculateDistanceToUni();
     }
 
     //this is how we calculat the distance
-    public void CalculateDistanceToUni() {
+    public void CalculateDistanceToUni()
+    {
         //first set the distance to 0. we will add to it step by step
         distanceToUni = 0;
         //The first thing to add, is our distance from the current waypoint
@@ -95,30 +106,32 @@ public class EnemyNavScript : MonoBehaviour {
             waypointToAddToCalculation = waypointToAddToCalculation.GetComponent<WaypointScript>().nextWayPoint;
         }
 
-        
+
     }
 
-    public void Runaway() {
+    public void Runaway()
+    {
         speed = runawaySpeed;
         gameData.ChangeUsac(GetComponent<EnemyHealthScript>().usacValue);
         GameObject[] exitPoints = GameObject.FindGameObjectsWithTag("ExitPoint");
         GameObject closestExitPoint = exitPoints[0];
-        for (int i = 1; i < exitPoints.Length; i++) {
-            if (Vector3.Distance(transform.position,closestExitPoint.transform.position) > Vector3.Distance(transform.position, exitPoints[i].transform.position)){
+        for (int i = 1; i < exitPoints.Length; i++)
+        {
+            if (Vector3.Distance(transform.position, closestExitPoint.transform.position) > Vector3.Distance(transform.position, exitPoints[i].transform.position))
+            {
                 closestExitPoint = exitPoints[i];
             }
         }
         targetToMoveTo = closestExitPoint.transform.position;
     }
 
-    public void SlowMeDown(float slowBy, float slowDuration) {
+    public void SlowMeDown(float slowBy, float slowDuration)
+    {
         if (speed == initialSpeed)
         {
             speed -= speed * slowBy;
             slowdownTimer = slowDuration;
         }
-        
-    }
 
-    
+    }
 }
