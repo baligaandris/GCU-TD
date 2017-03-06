@@ -42,6 +42,12 @@ public class SpawnEnemy : MonoBehaviour {
     private bool waveInProgress = false;
     private bool speedUp = false;
 
+
+    public Sprite nextWaveBut;
+    public Sprite nextWaveButP;
+    public Sprite speedUpBut;
+    public Sprite speedUpButP;
+
 	// Use this for initialization
 	void Start () {
         UpdateWaveCounterUI();
@@ -71,7 +77,8 @@ public class SpawnEnemy : MonoBehaviour {
         {
             if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && currentWavePart == waveSystem[currentWave].wave.Length)
             {
-                waveStarterButton.GetComponentInChildren<Text>().text = "Start Next Wave";
+                //waveStarterButton.GetComponentInChildren<Text>().text = "Start Next Wave";
+                SwapWaveStarterSprite();
                 currentWavePart = 0;
                 waveInProgress = false;
 
@@ -92,7 +99,8 @@ public class SpawnEnemy : MonoBehaviour {
             currentWave++;
             waveInProgress = true;
             UpdateWaveCounterUI();
-            waveStarterButton.GetComponentInChildren<Text>().text = ">>";
+            //waveStarterButton.GetComponentInChildren<Text>().text = ">>";
+            SwapWaveStarterSprite();
         }
         else if (speedUp == false) {
             Time.timeScale = 2;
@@ -113,6 +121,27 @@ public class SpawnEnemy : MonoBehaviour {
     private void UpdateWaveCounterUI() {
         int waveNumberToDistplay = currentWave + 1;
             waveCounterText.GetComponent<Text>().text = waveNumberToDistplay.ToString() + " / " + waveSystem.Length.ToString();
+
+    }
+
+    private void SwapWaveStarterSprite() {
+        SpriteState speedUpSpriteState = new SpriteState();
+        speedUpSpriteState.pressedSprite = speedUpButP;
+
+
+        SpriteState startWaveSpriteState = new SpriteState();
+        startWaveSpriteState.pressedSprite = nextWaveButP;
+
+        if (waveStarterButton.GetComponent<Image>().sprite == nextWaveBut || waveStarterButton.GetComponent<Image>().sprite == nextWaveButP)
+        {
+            waveStarterButton.GetComponent<Image>().sprite = speedUpBut;
+            waveStarterButton.spriteState = speedUpSpriteState;
+        }
+        else
+        {
+            waveStarterButton.GetComponent<Image>().sprite = nextWaveBut;
+            waveStarterButton.spriteState = startWaveSpriteState;
+        }
 
     }
 }
