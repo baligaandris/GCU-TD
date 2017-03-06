@@ -1,28 +1,24 @@
 fileFormatVersion: 2
-guid: 01d473e6e88a846599c632f48ab58d04
-timeCreated: 1488749452
+guid: 8de1244558e60496f9fee0967d0f437d
+timeCreated: 1488811852
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: flying enemy _0
-    21300002: flying enemy _1
-    21300004: flying enemy _2
-    21300006: flying enemy _3
-    21300008: flying enemy _4
-    21300010: flying enemy _5
-    21300012: flying enemy _6
-    21300014: flying enemy _7
-    21300016: flying enemy _8
-    21300018: flying enemy _9
-    21300020: flying enemy _10
-    21300022: flying enemy _11
-    21300024: flying enemy _12
-    21300026: flying enemy _13
-    21300028: flying enemy _14
-    21300030: flying enemy _15
-    21300032: flying enemy _16
-    21300034: flying enemy _17
-    21300036: flying enemy _18
+    21300000: Walk Front_0
+    21300002: Walk Front_1
+    21300004: Walk Front_2
+    21300006: Walk Front_3
+    21300008: Walk Front_4
+    21300010: Walk Front_5
+    21300012: Walk Front_6
+    21300014: Walk Front_7
+    21300016: Walk Front_8
+    21300018: Walk Front_9
+    21300020: Walk Front_10
+    21300022: Walk Front_11
+    21300024: Walk Front_12
+    21300026: Walk Front_13
+    21300028: Walk Front_14
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -59,7 +55,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 50
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,7 +68,7 @@ TextureImporter:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -80,7 +76,7 @@ TextureImporter:
   - buildTarget: Standalone
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -89,142 +85,155 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: flying enemy _0
+      name: Walk Front_0
       rect:
         serializedVersion: 2
-        x: 137
-        y: 3765
-        width: 236
-        height: 320
+        x: 0
+        y: 725
+        width: 345
+        height: 339
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _1
+      name: Walk Front_1
       rect:
         serializedVersion: 2
-        x: 683
-        y: 3765
-        width: 242
-        height: 329
+        x: 360
+        y: 712
+        width: 334
+        height: 355
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _2
+      name: Walk Front_2
       rect:
         serializedVersion: 2
-        x: 1226
-        y: 3767
-        width: 225
-        height: 321
+        x: 700
+        y: 723
+        width: 346
+        height: 347
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _3
+      name: Walk Front_3
       rect:
         serializedVersion: 2
-        x: 158
-        y: 3346
-        width: 218
-        height: 334
+        x: 1050
+        y: 717
+        width: 350
+        height: 355
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _4
+      name: Walk Front_4
       rect:
         serializedVersion: 2
-        x: 681
-        y: 3333
-        width: 236
-        height: 342
+        x: 1400
+        y: 725
+        width: 341
+        height: 350
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _5
+      name: Walk Front_5
       rect:
         serializedVersion: 2
-        x: 1227
-        y: 3336
-        width: 223
-        height: 352
+        x: 0
+        y: 366
+        width: 350
+        height: 350
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _6
+      name: Walk Front_6
       rect:
         serializedVersion: 2
-        x: 149
-        y: 2904
-        width: 228
-        height: 359
+        x: 353
+        y: 371
+        width: 338
+        height: 343
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _7
+      name: Walk Front_7
       rect:
         serializedVersion: 2
-        x: 684
-        y: 2904
-        width: 228
-        height: 356
+        x: 703
+        y: 371
+        width: 340
+        height: 340
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _8
+      name: Walk Front_8
       rect:
         serializedVersion: 2
-        x: 1218
-        y: 2904
-        width: 229
-        height: 356
+        x: 1050
+        y: 371
+        width: 340
+        height: 345
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _9
+      name: Walk Front_9
       rect:
         serializedVersion: 2
-        x: 152
-        y: 2500
-        width: 225
-        height: 352
+        x: 1400
+        y: 376
+        width: 352
+        height: 343
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _10
+      name: Walk Front_10
       rect:
         serializedVersion: 2
-        x: 680
-        y: 2484
-        width: 225
+        x: 0
+        y: 2
+        width: 344
+        height: 366
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Walk Front_11
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 0
+        width: 345
         height: 365
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -232,104 +241,39 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _11
+      name: Walk Front_12
       rect:
         serializedVersion: 2
-        x: 1215
-        y: 2481
-        width: 232
-        height: 371
+        x: 700
+        y: 0
+        width: 348
+        height: 365
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _12
+      name: Walk Front_13
       rect:
         serializedVersion: 2
-        x: 139
-        y: 2063
-        width: 235
-        height: 372
+        x: 1050
+        y: 2
+        width: 350
+        height: 361
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flying enemy _13
+      name: Walk Front_14
       rect:
         serializedVersion: 2
-        x: 664
-        y: 2073
-        width: 248
-        height: 362
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: flying enemy _14
-      rect:
-        serializedVersion: 2
-        x: 1202
-        y: 2054
-        width: 248
-        height: 384
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: flying enemy _15
-      rect:
-        serializedVersion: 2
-        x: 139
-        y: 1630
-        width: 241
-        height: 388
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: flying enemy _16
-      rect:
-        serializedVersion: 2
-        x: 674
-        y: 1633
-        width: 238
-        height: 385
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: flying enemy _17
-      rect:
-        serializedVersion: 2
-        x: 1207
-        y: 1630
-        width: 250
-        height: 396
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: flying enemy _18
-      rect:
-        serializedVersion: 2
-        x: 125
-        y: 1287
-        width: 247
-        height: 323
+        x: 1403
+        y: 0
+        width: 356
+        height: 366
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

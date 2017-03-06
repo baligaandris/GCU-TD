@@ -9,6 +9,7 @@ public class GameDataScript : MonoBehaviour {
 
     public Text healthDisplay;
     public Text usacDisplay;
+    public Transform loseMenu;
 
     public TowerRadialMenuScript radialMenu;
     public GameObject activeTower;
@@ -52,7 +53,7 @@ public class GameDataScript : MonoBehaviour {
         }
             
 
-        StartCoroutine (DelayLoadEndScene());
+        GameOver();
 	}
 
     //we call this script, when an enemy walks into the Uni, to deal damage to it.
@@ -75,10 +76,11 @@ public class GameDataScript : MonoBehaviour {
         usacDisplay.GetComponent<Text>().text = "USAC: " + usac;
     }
 
-	IEnumerator DelayLoadEndScene (){
+	public void GameOver (){
 		if (uniHealth <= 0) {
-			yield return new WaitForSeconds (2);
-			Application.LoadLevel ("EndScene");
+			if (loseMenu.gameObject.activeInHierarchy == false) {
+			        loseMenu.gameObject.SetActive (true);
+            }
 		}
 	}
     //these two coroutines delay changing the active tower by a little to make sure the button click goes through

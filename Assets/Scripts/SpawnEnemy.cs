@@ -7,6 +7,7 @@ public class WavePart {
     public GameObject enemyType;
     public int numberOfEnemies;
     public float howLongTowaitAfter;
+    
 
     public WavePart(GameObject enemyIn,int howMany, float waitTime) {
         enemyType = enemyIn;
@@ -31,11 +32,12 @@ public class SpawnEnemy : MonoBehaviour {
     public GameObject enemyToSpawn;
     public int numberOfEnemiesToSpawn;
 
+    public Transform winMenu;
     public Wave[] waveSystem;
 
     private int currentWave = -1;
     private int currentWavePart = 0;
-
+    private GameDataScript gameData;
     private float spawnCoolDown = 0;
     private bool waveInProgress = false;
     private bool speedUp = false;
@@ -43,6 +45,7 @@ public class SpawnEnemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         UpdateWaveCounterUI();
+        gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>();
 	}
 	
 	// Update is called once per frame
@@ -72,8 +75,9 @@ public class SpawnEnemy : MonoBehaviour {
                 currentWavePart = 0;
                 waveInProgress = false;
 
-                if (currentWave == waveSystem.Length-1) {
-                    Application.LoadLevel("EndScene");
+                if (currentWave == waveSystem.Length-1 && gameData.uniHealth > 0) {
+                    
+                        winMenu.gameObject.SetActive(true);
                 }
             }
         }

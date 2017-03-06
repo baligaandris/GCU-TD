@@ -15,6 +15,12 @@ public GameObject narrativeCanvas;
 		Application.LoadLevel ("InterimScene");
 	}
 
+	IEnumerator LoadMainLevelAgain (){
+		GetComponent<AudioSource> ().Play ();
+		yield return new WaitForSeconds (GetComponent<AudioSource> ().clip.length);
+		Application.LoadLevel ("InterimScene");
+	}
+
 	IEnumerator DelayQuitGame(){
 		GetComponent<AudioSource> ().Play ();
 		yield return new WaitForSeconds (GetComponent<AudioSource> ().clip.length);
@@ -49,6 +55,10 @@ public GameObject narrativeCanvas;
 	public void LoadStartMenu() {
 	
 		StartCoroutine (DelayLoadStartMenu ());
+	}
+
+	public void RestartLevel() {
+		StartCoroutine (LoadMainLevelAgain());
 	}
 
 }
