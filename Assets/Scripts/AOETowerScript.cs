@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AOETowerScript : TowerShootsScript
 {
-
-
+    
 
 	// Use this for initialization
 	void Start () {
@@ -27,17 +26,15 @@ public class AOETowerScript : TowerShootsScript
 
 
 
-            if (target.EnemyObject != null)
-            {
                 Shoot();
-            }
+
 
         }
     }
 
     public override void Shoot()
     {
-
+        Instantiate(projectile, transform.position, Quaternion.identity);
         
         for(int i = 0; i < targets.Count; i++)
         {
