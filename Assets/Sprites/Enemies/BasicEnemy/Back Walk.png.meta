@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 08e793ababc684fbaa62c0ccdfa6c4fb
-timeCreated: 1488849591
+guid: 8ddd4c0d31b31465eb8f8a5344ccd783
+timeCreated: 1488884786
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -83,7 +83,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 580
-        width: 460
+        width: 475
         height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -94,9 +94,9 @@ TextureImporter:
       name: Back Walk_1
       rect:
         serializedVersion: 2
-        x: 460
+        x: 475
         y: 580
-        width: 460
+        width: 475
         height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -107,9 +107,9 @@ TextureImporter:
       name: Back Walk_2
       rect:
         serializedVersion: 2
-        x: 920
+        x: 950
         y: 580
-        width: 460
+        width: 475
         height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -120,12 +120,12 @@ TextureImporter:
       name: Back Walk_3
       rect:
         serializedVersion: 2
-        x: 1380
+        x: 1425
         y: 580
-        width: 460
+        width: 475
         height: 500
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -135,7 +135,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 80
-        width: 460
+        width: 475
         height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -146,9 +146,9 @@ TextureImporter:
       name: Back Walk_5
       rect:
         serializedVersion: 2
-        x: 460
+        x: 475
         y: 80
-        width: 460
+        width: 475
         height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -159,9 +159,9 @@ TextureImporter:
       name: Back Walk_6
       rect:
         serializedVersion: 2
-        x: 920
+        x: 950
         y: 80
-        width: 460
+        width: 475
         height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -172,12 +172,12 @@ TextureImporter:
       name: Back Walk_7
       rect:
         serializedVersion: 2
-        x: 1380
+        x: 1425
         y: 80
-        width: 460
+        width: 475
         height: 500
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

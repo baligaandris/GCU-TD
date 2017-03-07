@@ -19,6 +19,7 @@ public class SpriteOrderScript : MonoBehaviour {
         if (collider.gameObject.tag == "Enemy")
         {
             collider.GetComponentInChildren<SpriteRenderer>().sortingOrder -= 2;
+            collider.GetComponentInChildren<Canvas>().sortingOrder -= 2;
         }
     }
 }
