@@ -10,6 +10,8 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public GameObject[] buildableAreas;
     private GameDataScript gameData;
     public GameObject[] allTowers;
+    public GameObject[] freeSlots;
+    GameObject activeSlot;
 
     // Use this for initialization
     void Start()
@@ -51,14 +53,51 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             hits = Physics.RaycastAll(ray, 50f);
             if (hits != null && hits.Length > 0)
-                foreach (GameObject buildableArea in buildableAreas)
-                    foreach (GameObject tower in allTowers)
-                        if (hits != null)
+              //  foreach (GameObject buildableArea in buildableAreas)
+                //    foreach (GameObject tower in allTowers)
+                      //  if (hits != null)
                         {
                             MaybeShowHoverTower(hits);
-                        }
+
+                int slotIndex = GetSlotIndex(hits);
+                if (slotIndex != -1)
+                {
+                    GameObject slotQuad = hits[slotIndex].collider.gameObject;
+                    activeSlot = slotQuad;
+                    EnableSlot(slotQuad);
+                }
+                else
+                {
+                    activeSlot = null;
+                    DisableAllSlots();
+                }
+           }
         }
     }
+
+    void EnableSlot(GameObject slot)
+    {
+        foreach(GameObject freeSlot in freeSlots)
+        {
+            if (slot.name.Equals(freeSlot.name))
+            {
+                freeSlot.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                freeSlot.GetComponent<MeshRenderer>().enabled = false;
+            }
+        }
+    }
+
+    void DisableAllSlots()
+    {
+        foreach(GameObject freeSlot in freeSlots)
+        {
+            freeSlot.GetComponent<MeshRenderer>().enabled = false;
+        }
+    }
+
 
     int GetTerrainColliderQuadIndex(RaycastHit[] hits)
     {
@@ -73,11 +112,11 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         return -1;
     }
 
-    int GetBuildableAreaIndex(RaycastHit[] hits)
+    int GetSlotIndex(RaycastHit[] hits)
     {
         for (int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].collider.gameObject.name.Equals("BuildableArea"))
+            if(hits[i].collider.gameObject.name.StartsWith("Slot"))
             {
                 return i;
             }
@@ -85,14 +124,10 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         return -1;
     }
 
-
-
     void MaybeShowHoverTower(RaycastHit[] hits)
     {
-        int terrainBuildAreaQuadIndex = GetBuildableAreaIndex(hits);
         int terrainColliderQuadIndex = GetTerrainColliderQuadIndex(hits);
         if (terrainColliderQuadIndex != -1)
-        if (terrainBuildAreaQuadIndex != -1)
         {
             hoverTower.transform.position = hits[terrainColliderQuadIndex].point;
             hoverTower.SetActive(true);
@@ -107,15 +142,28 @@ public class Dragndropscript : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // If the prefab instance is active after dragging stopped, it means
-        // it's in the arena so (for now), just drop it in.
-        if (hoverTower.activeSelf)
+        if(activeSlot != null)
         {
-            Instantiate(tower, hoverTower.transform.position, Quaternion.identity);
+            Vector3 quadCenter = GetQuadCenter(activeSlot);
+            Instantiate(tower, quadCenter, Quaternion.identity);
+            activeSlot.SetActive(false);
             gameData.ChangeUsac(-towerPrice);
         }
 
         // Then set it to inactive ready for the next drag!
         hoverTower.SetActive(false);
+    }
+
+    Vector3 GetQuadCenter(GameObject quad)
+    {
+        Vector3[] meshVerts = quad.GetComponent<MeshFilter>().mesh.vertices;
+        Vector3[] verticalRealWorldPositions = new Vector3[meshVerts.Length];
+
+        for(int i = 0; i < meshVerts.Length; i++)
+        {
+            verticalRealWorldPositions[i] = quad.transform.TransformPoint(meshVerts[i]);
+        }
+        Vector3 midPoint = Vector3.Slerp(verticalRealWorldPositions[0], verticalRealWorldPositions[1], 0.5f);
+        return midPoint;
     }
 }
