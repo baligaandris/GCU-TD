@@ -40,7 +40,14 @@ public class GameDataScript : MonoBehaviour {
                         //if we click on a tower, we change that to be the active tower
                         //StartCoroutine(SlowlyChangeActiveTower());
                         activeTower = hit.collider.gameObject;
-                        radialMenu.ActivateRadialMenu();
+                        if (activeTower.GetComponentInChildren<TowerShootsScript>().level == 0)
+                        {
+                            radialMenu.levelUpRadialMenu.ActivateRadialMenu();
+                        }
+                        else
+                        {
+                            radialMenu.ActivateRadialMenu();
+                        }
                     }
                     //else
                     //{

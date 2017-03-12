@@ -8,7 +8,7 @@ public class TowerRadialMenuScript : MonoBehaviour {
     private GameObject activeTower; //this is where we will temporarily store the active tower. it needs to be updated every frame, to make sure we do stuff to the right tower.
     private GameDataScript gameData; //this is where we will store a reference to our game data script
 
-    private TowerRadialMenuScript levelUpRadialMenu;
+    public TowerRadialMenuScript levelUpRadialMenu;
     private TowerRadialMenuScript targetingRadialMenu;
 
     public GameObject aoeTower;
@@ -16,7 +16,7 @@ public class TowerRadialMenuScript : MonoBehaviour {
     public GameObject slowTower;
     public GameObject buffTower;
 
-
+    public GameObject towerPrePlaced;
 
     // Use this for initialization
     void Start () {
@@ -136,7 +136,9 @@ public class TowerRadialMenuScript : MonoBehaviour {
 
     public void SellButtonClicked() {
         gameData.ChangeUsac(activeTower.GetComponentInChildren<TowerShootsScript>().cost);
+        Instantiate(towerPrePlaced, activeTower.transform.position, Quaternion.identity);
         Destroy(activeTower);
+        
         DeactivateRadialMenu();
     }
 
