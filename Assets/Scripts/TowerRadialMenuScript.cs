@@ -18,6 +18,11 @@ public class TowerRadialMenuScript : MonoBehaviour {
 
     public GameObject towerPrePlaced;
 
+    public GameObject audioInfo;
+    public GameObject compInfo;
+    public GameObject sportsInfo;
+    public GameObject artInfo;
+
     // Use this for initialization
     void Start () {
         gameData = GameObject.FindWithTag("GameData").GetComponent<GameDataScript>();
@@ -158,5 +163,22 @@ public class TowerRadialMenuScript : MonoBehaviour {
         activeTower.GetComponentInChildren<TowerShootsScript>().myTargetingMethod = TowerShootsScript.targeting.Closest;
         DeactivateRadialMenu();
         gameData.activeTower = null;
+    }
+    public void InfoButtonClicked() {
+        if (audioInfo.activeInHierarchy)
+        {
+            audioInfo.SetActive(false);
+            compInfo.SetActive(false);
+            sportsInfo.SetActive(false);
+            artInfo.SetActive(false);
+        }
+        else {
+            audioInfo.SetActive(true);
+            compInfo.SetActive(true);
+            sportsInfo.SetActive(true);
+            artInfo.SetActive(true);
+        }
+        
+
     }
 }
