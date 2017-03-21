@@ -1,21 +1,17 @@
 fileFormatVersion: 2
-guid: 76d924fbb636c46ca8e3ca16375f67b4
-timeCreated: 1488849552
+guid: 9a939b6e4a7e7472981a7916f5709d30
+timeCreated: 1490105739
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: front Walk_0
-    21300002: front Walk_1
-    21300004: front Walk_2
-    21300006: front Walk_3
-    21300008: front Walk_4
-    21300010: front Walk_5
-    21300012: front Walk_6
-    21300014: front Walk_7
-    21300016: front Walk_8
-    21300018: front Walk_9
-    21300020: front Walk_10
-    21300022: front Walk_11
+    21300000: Re Front Walk_0
+    21300002: Re Front Walk_1
+    21300004: Re Front Walk_2
+    21300006: Re Front Walk_3
+    21300008: Re Front Walk_4
+    21300010: Re Front Walk_5
+    21300012: Re Front Walk_6
+    21300014: Re Front Walk_7
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -52,7 +48,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 70
+  spritePixelsToUnits: 50
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -82,156 +78,104 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: front Walk_0
+      name: Re Front Walk_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 580
-        width: 300
-        height: 500
+        x: 119
+        y: 611
+        width: 213
+        height: 429
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: front Walk_1
+      name: Re Front Walk_1
       rect:
         serializedVersion: 2
-        x: 300
-        y: 580
-        width: 300
-        height: 500
+        x: 512
+        y: 611
+        width: 244
+        height: 429
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: front Walk_2
+      name: Re Front Walk_2
       rect:
         serializedVersion: 2
-        x: 600
-        y: 580
-        width: 300
-        height: 500
+        x: 932
+        y: 607
+        width: 274
+        height: 435
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: front Walk_3
+      name: Re Front Walk_3
       rect:
         serializedVersion: 2
-        x: 900
-        y: 580
-        width: 300
-        height: 500
+        x: 1376
+        y: 624
+        width: 296
+        height: 418
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: front Walk_4
+      name: Re Front Walk_4
       rect:
         serializedVersion: 2
-        x: 1200
-        y: 580
-        width: 300
-        height: 500
+        x: 11
+        y: 123
+        width: 335
+        height: 441
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: front Walk_5
+      name: Re Front Walk_5
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 580
-        width: 300
-        height: 500
+        x: 460
+        y: 124
+        width: 245
+        height: 438
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: front Walk_6
+      name: Re Front Walk_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 80
-        width: 300
-        height: 500
+        x: 888
+        y: 120
+        width: 244
+        height: 436
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: front Walk_7
+      name: Re Front Walk_7
       rect:
         serializedVersion: 2
-        x: 300
-        y: 80
-        width: 300
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: front Walk_8
-      rect:
-        serializedVersion: 2
-        x: 600
-        y: 80
-        width: 300
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: front Walk_9
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 80
-        width: 300
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: front Walk_10
-      rect:
-        serializedVersion: 2
-        x: 1200
-        y: 80
-        width: 300
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: front Walk_11
-      rect:
-        serializedVersion: 2
-        x: 1500
-        y: 80
-        width: 300
-        height: 500
+        x: 1379
+        y: 118
+        width: 233
+        height: 442
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
