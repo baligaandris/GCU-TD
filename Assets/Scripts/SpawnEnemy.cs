@@ -18,9 +18,10 @@ public class WavePart {
 [System.Serializable]
 public class Wave {
     public WavePart[] wave;
-
-    public Wave(WavePart[] WavePartsIn) {
+    public Canvas tutorialbeforeWave;
+    public Wave(WavePart[] WavePartsIn, Canvas tutorialCanvasIn) {
         wave = WavePartsIn;
+        tutorialbeforeWave = tutorialCanvasIn;
     } 
 }
 
@@ -39,7 +40,7 @@ public class SpawnEnemy : MonoBehaviour {
     private int currentWavePart = 0;
     private GameDataScript gameData;
     private float spawnCoolDown = 0;
-    private bool waveInProgress = false;
+    public bool waveInProgress = false;
     private bool speedUp = false;
 
 
@@ -61,6 +62,7 @@ public class SpawnEnemy : MonoBehaviour {
 
         if (waveInProgress)
         {
+
             if (currentWavePart < waveSystem[currentWave].wave.Length && spawnCoolDown <= 0)
             {
                 for (int i = 0; i < waveSystem[currentWave].wave[currentWavePart].numberOfEnemies; i++)
@@ -101,6 +103,12 @@ public class SpawnEnemy : MonoBehaviour {
             UpdateWaveCounterUI();
             //waveStarterButton.GetComponentInChildren<Text>().text = ">>";
             SwapWaveStarterSprite();
+            if (waveSystem[currentWave].tutorialbeforeWave != null)
+            {
+                waveSystem[currentWave].tutorialbeforeWave.gameObject.SetActive(true);
+                //Time.timeScale = 0;
+                waveInProgress = false;
+            }
         }
         else if (speedUp == false) {
             Time.timeScale = 2;

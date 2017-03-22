@@ -17,7 +17,7 @@ public class PauseScript : MonoBehaviour {
 	}
 
 	public void PauseButton () {
-		if (pauseMenu.gameObject.activeInHierarchy == false) {
+		if (Time.timeScale == 1) {
 			pauseMenu.gameObject.SetActive (true);
 			Time.timeScale = 0;
 		} else {
